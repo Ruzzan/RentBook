@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Error {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <h3 class="display-4 text-danger">
+        Page Not Found.
+    </h3>
+    <p class="lead"> Take me to home page <a href="{% url 'home' %}"></a> </p>
+</div>
+
+{% endblock content %}

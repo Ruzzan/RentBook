@@ -1,0 +1,15 @@
+p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.row .image img{
+    height: 200px;
+    width: 150px;
+}
+
+.user .card:hover {
+    transition: 0.2s ease;
+    cursor: pointer;
+    transform: scale(1.01,1.01);
+}

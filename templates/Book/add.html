@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %} 
+
+{% endblock head%}
+
+
+{% block title %} Upload A Book {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="form-group col-md-6 mx-auto card col-sm-12 mt-2">
+        <h3 class="text-info text-center"> Upload A Book </h3>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Upload Book" class="btn btn-primary btn-block">
+    </form>
+    </div>
+</div>
+
+
+{% endblock content %}

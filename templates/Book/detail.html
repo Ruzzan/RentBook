@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{book.name}} {% endblock title %}
+
+{% block head %} 
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock head%}
+
+{% block content %}
+
+    <!-- Message alert -->
+    <div class="container mt-2">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong class="text-center">{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
+    
+<div class="container card mt-2 main" style="box-shadow:2px 7px 15px -4px rgba(0,0,0,0.75);">
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <h3 class="bg-primary text-white text-center mt-2 py-2"> {{book.name}} </h3>
+        <div class="card-body text-left">
+            <p> <i class="fa fa-book text-primary"></i> Book: {{book.name}} </p>
+            <p> <i class="fa fa-user text-danger"></i> Author: {{book.author}} </p>
+            <p> <i class="fa fa-folder-open text-secondary"></i> Category: {{book.category}} </p>
+            <p> <i class="fa fa-map-marker text-warning"></i> Location: {{book.location}} </p>
+            {% if book.status == 'Available' %}
+            <p> <i class="fa fa-check-circle-o text-success" aria-hidden="true"></i> Status: {{book.status}}  </p>
+            {% else %}
+            <p> <i class="fa fa-times text-danger" aria-hidden="true"></i> Status: {{book.status}}  </p>
+            {% endif %}
+            <p> <i class="fa fa-calendar"></i> Uploaded on: {{book.date}} </p>
+        </div>
+    </div>
+
+    <!-- lenders info -->
+    <div class="col-md-5 col-sm-12 ml-2 mt-2 user">
+        <div class="card" style="box-shadow:2px 7px 15px -4px rgba(0,0,0,0.75);">
+            <h4 class="card-header text-center text-white bg-primary"> Lender's Info </h4>
+            <div class="card-body ml-2">
+                    <p> <i class="fa fa-user-circle text-primary"></i> {{book.manager.get_full_name}} </p>
+                    <p> <i class="fa fa-phone text-danger"></i> {{book.phone}} </p>
+                    <p> <i class="fa fa-envelope text-success"></i> {{book.manager.email}} </p>
+                    <a href="mailto:{{ book.manager.email }}" class="btn btn-lg float-left btn-info mx-auto text-light">  
+                        <i class="fa fa-envelope-o"></i>
+                    </a>
+                    <a href="tel:{{ book.phone }}" class="btn btn-lg float-left btn-success float-right mx-auto text-light"> <i class="fa fa-phone"></i> </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-4 col-sm-12 card mx-2 image">
+        <img src="{{book.image.url}}" alt="" class="mx-auto">
+    </div>
+    <div class="col-md-7 col-sm-12 card">
+        <h3 class="bg-primary text-center text-white"> About Book </h3>
+        <p> {{book.info}} </p>
+    </div>
+</div>
+
+<hr>
+<!-- This is comment section -->
+<div class="row">
+    <div class="col md-11 col-sm-12">
+        <h3 class="text-center text-info"> Comments </h3>
+        <!-- comments of users -->
+        <p> {{comments.count}} Comment{{ comments|pluralize }}</p>
+        {% for comment in comments %}
+
+        <div class="alert alert-primary py-0 px-0">
+            <h6 class="d-inline"> {{comment.manager.username}} on <span> {{comment.timestamp}} </span>  </h6>
+            
+        {% if comment.manager == request.user %}
+        <a href="{% url 'deletecmnt' comment.id %}" class="btn btn-danger text-white btn-sm float-right mr-2"> <i class="fa fa-trash"></i> </a>
+        {% endif %}
+
+        <p> -{{comment.content}} </p>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    <div class="col-sm-12 col-md-11 mx-auto">
+            <form action="" method="POST" id="commentForm">
+                    <p class="text-secondary"> Add a comment. </p>
+                    {% csrf_token %}
+                    {{comment_form.as_p}}
+                    {% if user.is_authenticated %}
+                    <input type="submit" value="Comment" class="btn btn-primary">
+                    {% else %}
+                    <input type="submit" value="Comment" class="btn btn-primary" disabled>
+                    {% endif %}
+
+            </form>
+    </div>
+</div>
+
+
+</div>
+
+
+<script>
+    $('#commentForm').on('submit', () => {
+      $('#content').val('');
+    });
+  </script>
+
+{% endblock content %}

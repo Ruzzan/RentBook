@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %} 
+
+{% endblock head%}
+
+
+{% block title %} Edit Book {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+        {% if book.manager == request.user %}
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{book.image.url}}" alt="bookimage" class="img-fluid img-adjusted mt-2">
+        </div>
+        <div class="form-group col-md-5  card col-sm-12 mt-2">
+            <h3 class="text-info text-center"> Edit Your Book </h3>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Edit Book" class="btn btn-primary btn-block">
+        </form>
+        </div>
+    </div>
+    {% else %}
+    <h3 class="text-center text-danger display-4"> You can't access this page. </h3>
+    {% endif %}
+</div>
+
+
+
+{% endblock content %}

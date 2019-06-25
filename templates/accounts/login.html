@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %} 
+
+<!-- Message alert -->
+<div class="container mt-2">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong class="text-center">{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto col-sm-12 card mt-2">
+            <h3 class="text-center text-info"> Login To Bookent </h3>
+            <p class="text-danger text-center"> {{error}} </p>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" id="" class="form-control" placeholder="Username"> <br>
+                    <input type="password" name="password" id="" class="form-control" placeholder="Password">
+
+                    <input type="submit" value="Login" class="btn btn-block btn-info mt-2">
+                </div>
+                <small> Not registered yet? <a href="{% url 'signup' %}">Signup</a> </small>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

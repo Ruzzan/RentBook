@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/os.css' %}">
+{% endblock head %}
+
+{% block title %} BookenT {% endblock title %}
+
+{% block content %}
+
+    <div class="container-fluid parallax">
+        <h3 class="text-center text-white">
+            Rent It. <br> <br>
+            Lend It. <br> <br>
+            LEARN and GROW together.
+        </h3>
+    </div>
+
+    <!-- Message alert -->
+<div class="container mt-2">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong class="text-center">{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </ul>
+{% endif %}
+</div>
+
+    <div class="container-fluid">
+        {% if books %}
+        <h3 class="text-center text-secondary"> Latest books on rent. </h3>
+        <div class="row ">
+            <!-- Book card -->
+            {% for book in books %}
+            <div class="col-md-3 col-sm-12 card pb-2 mt-2">
+                <img src="{{book.image.url}}" alt="" class="img-fluid mt-2">
+                <div class="card-body m-0 p-0 text-left">
+                    <p> <i class="fa fa-book text-primary"></i> {{book.name}} </p>
+                    <p> <span class="text-danger">Author</span>: {{book.author}} </p>
+                    {% if book.status == 'Available' %}
+                    <p> <i class="fa fa-check-circle-o text-success" aria-hidden="true"></i> Status: {{book.status}}  </p>
+                    {% else %}
+                    <p> <i class="fa fa-times text-danger" aria-hidden="true"></i> Status: {{book.status}}  </p>
+                    {% endif %}
+                    <p> <i class="fa fa-map-marker text-success" aria-hidden="true"></i> {{book.location}} </p>
+                    <a href="{% url 'detail' book.slug %}" class="btn btn-info btn-block"> More </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h3 class="text-center d-inline"> No Books Avialable.</h3> 
+            <a href="{% url 'add' %}"> Be first to upload book. </a>
+        {% endif %}
+    </div>
+{% endblock content %}

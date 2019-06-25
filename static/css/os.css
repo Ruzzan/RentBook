@@ -1,0 +1,53 @@
+.parallax{
+    background: url('https://images.pexels.com/photos/1846422/pexels-photo-1846422.jpeg?cs=srgb&dl=beautiful-flower-book-bindings-book-series-1846422.jpg&fm=jpg') center no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+.parallax h3 {
+    line-height: 50px;
+}
+
+
+
+.container-fluid .row {
+    margin: 0 100px;
+    padding: 0;
+}
+
+.card {
+    height: auto !important;
+    position: relative;
+    margin: 0 10px;
+    max-width: 250px !important;
+}
+ .card:hover{
+    box-shadow: 7px 6px 10px -4px rgba(153, 153, 151, 0.7);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+ .card img {
+    height: 50px;
+    width: 90%;
+    height: 200px;
+   
+}
+
+.card .card-body p{
+    line-height: 10px;
+    font-size: 16px;
+}
+
+
+@media (max-width:680px) {
+    .container-fluid .row {
+        margin: 0 0 0 40px;
+    }
+    .card {
+        width: 98% !important;
+        margin: 0;
+    }
+}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} Signup {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 mx-auto card mt-2">
+            <h3 class="card-title text-info text-center"> Signup to Bookent </h3>
+            <p class="text-danger text-center"> {{error}} </p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="firstname" id="" class="form-control" placeholder="First Name"> <br>
+                    <input type="text" name="lastname" id="" class="form-control" placeholder="Last Name"> <br>
+                    <input type="text" name="username" id="" class="form-control" placeholder="Username"> <br>
+                    <input type="email" name="email" id="" class="form-control" placeholder="Email"> <br>
+                    <input type="password" id="password1" name="password1" id="" class="form-control" placeholder="Password"> <br>
+                    <input type="password" id="password2" name="password2" id="" class="form-control" placeholder="Confirm Password"> <br>
+
+                    <input type="submit" value="Signup" class="btn btn-info btn-block mt-2">
+
+                </div>
+                <small> Have an account? <a href="{% url 'login' %}">Login</a> </small>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
