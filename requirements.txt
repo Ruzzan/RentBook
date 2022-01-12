@@ -1,4 +1,4 @@
 Django==2.2
 Pillow==6.0.0
-pipenv==2018.11.26
+pipenv==2022.1.8
 django-crispy-forms==1.7.2
